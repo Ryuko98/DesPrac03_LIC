@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@tabler/icons-react": "^3.49.0",
     "bootstrap": "^5.3.8",
     "next": "16.4.2",
     "react": "19.3.0",
