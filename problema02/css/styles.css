@@ -1,0 +1,318 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Fijar el menú arriba de todo */
+#navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background: #3565D5;
+}
+
+/* Limpiar flotados de la lista principal */
+ul.parent {
+    list-style: none;
+    width: 100%;
+}
+
+ul.parent::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Elementos principales del menú */
+ul.parent > li {
+    float: left;
+    width: 20%;
+    text-align: center;
+    padding: 15px 10px;
+    background: #3565D5;
+    color: white;
+    cursor: pointer;
+    border-right: 1px solid #1B86BC;
+    position: relative; /* Clave para que el submenú se posicione respecto a su li */
+}
+
+ul.parent > li:hover {
+    background: #284da0;
+}
+
+/* Submenús flotantes */
+ul.child {
+    display: none;
+    position: absolute;
+    top: 100%; /* Justo debajo del elemento padre */
+    left: 0;
+    width: 100%;
+    background-color: #35A0D5;
+    list-style: none;
+    padding: 5px 0;
+}
+
+/* Estilo de los elementos internos del submenú */
+ul.child li {
+    padding: 8px;
+    text-align: center;
+    color: white;
+    width: 100%;
+}
+
+ul.child li:hover {
+    background: #1B86BC;
+}
+
+/* Forzar que el contenido de cada sección de FullPage esté centrado y ordenado */
+.section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Contenedor interno para evitar desbordamientos de texto */
+.contenido-seccion {
+    max-width: auto;
+    margin: 0 auto;
+}
+
+/* Estilo limpio y centrado para la tarjeta de autores */
+.tarjeta-autores {
+    background: #3565D5; /* Fondo oscuro semitransparente en lugar de blanco */
+    border:solid black 0.5px;
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin: 20px auto 0 auto; /* El 'auto' a los lados asegura que esté centrado */
+    max-width: 400px;
+    text-align: center;
+}
+
+.tarjeta-autores h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.tarjeta-autores p {
+    color: #e2e8f0;
+    margin: 4px 0;
+}
+
+/* Mover las flechas del slider horizontal para que no choquen con el menú de la derecha */
+.fp-controlArrow.fp-next {
+    right: 50px !important;
+}
+
+.fp-controlArrow.fp-prev {
+    left: 30px !important;
+}
+
+/* Color de fondo para el primer slide (Attack on Titan - Tonos oscuros/rojizos) */
+.section .fp-slide:nth-child(1) {
+    background-color: white !important;
+}
+
+/* Color de fondo para el segundo slide (Fullmetal Alchemist - Tonos dorados/metálicos o azulados) */
+.section .fp-slide:nth-child(2) {
+    background-color: red !important;
+}
+
+/* Color de fondo para el tercer slide (Death Note - Tonos oscuros/misteriosos) */
+.section .fp-slide:nth-child(3) {
+    background-color: yellow !important;
+}
+
+/* Estilos específicos para la Sección de Galería con slider */
+.galeria-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Mantiene el contenido alineado hacia arriba */
+}
+
+/* Cabecera de la galería fija en la parte superior del slide */
+.galeria-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-top: 20px;
+}
+
+.galeria-header h2 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.galeria-header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* Contenedor horizontal para las 3 imágenes/tarjetas */
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* Estilo individual para cada cuadro de imagen */
+.galeria-item {
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    aspect-ratio: 1 / 0.7;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 700px) {
+    .galeria-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .galeria-grid {
+        grid-template-columns: 1fr;
+        width: calc(100% - 60px);
+    }
+}
+
+/* Estilos específicos para la Sección 5: Contacto */
+.contacto-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contacto-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.contacto-header h2 {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.contacto-header p {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Rejilla de 2 columnas centrada */
+.contacto-grid {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    justify-content: center;
+    align-items: stretch;
+}
+
+/* Columna de Información y Redes */
+.contacto-info, .contacto-form-box {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: left;
+}
+
+.contacto-info h3, .contacto-form-box h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: #3565D5;
+}
+
+.contacto-desc {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.lista-contacto {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.lista-contacto li {
+    margin-bottom: 8px;
+}
+
+/* Botones de Redes Sociales */
+.redes-sociales {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-red {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #3565D5;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.btn-red:hover {
+    background: #1B86BC;
+}
+
+/* Campos del Formulario */
+.campo {
+    margin-bottom: 12px;
+}
+
+.campo input, .campo textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-family: inherit;
+}
+
+.btn-enviar {
+    width: 100%;
+    padding: 10px;
+    background: #3565D5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-enviar:hover {
+    background: #1B86BC;
+}

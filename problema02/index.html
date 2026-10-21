@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitio One Page con FullPage.js</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.min.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+    <nav id="navigation">
+        <ul class="parent">
+            <li>Inicio</li>
+            <li>Presentación</li>
+            <li>Servicios
+                <ul class="child">
+                    <li>Diseño</li>
+                    <li>Desarrollo</li>
+                    <li>Anime 3</li>                
+                </ul>
+            </li>
+            <li>Galería
+                <ul class="child">
+                    <li>Fotos</li>
+                    <li>Videos</li>
+                    <li>Anime 3</li>
+                </ul>
+            </li>
+            <li>Contacto</li>
+        </ul>
+    </nav>
+
+    <!-- Contenedor de FullPage.js -->
+    <div id="fullpage">
+        
+        <!-- SECCIÓN 1: INICIO (Portada del Proyecto) -->
+        <div class="section">
+            <div class="contenido-seccion">
+                <h1 class="display-4 fw-bold">Catálogo de Anime</h1>
+                <p class="lead mt-3">Desafío 03 — Problema 02</p>
+                <div class="mt-4">
+                    <span class="badge bg-primary fs-6 px-3 py-2">Desplázate para explorar</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: PRESENTACIÓN -->
+        <div class="section">
+            <div class="contenido-seccion">
+                <h2>Presentación del Proyecto</h2>
+                <p class="descripcion">Sitio web desarrollado como asignación académica para evaluar el uso de jQuery y FullPage.js.</p>
+                <div class="tarjeta-autores">
+                    <h3>Desarrollado por:</h3>
+                    <p>Nombre del Estudiante 1</p>
+                    <p>Nombre del Estudiante 2</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: SLIDER HORIZONTAL DE ANIMES -->
+        <div class="section">
+            <!-- Subsección 1: Anime 1 -->
+            <div class="slide">
+                <div class="contenido-seccion">
+                    <span class="categoria-tag">Shonen / Acción</span>
+                    <h2>Attack on Titan (Shingeki no Kyojin)</h2>
+                    <p class="anime-desc">
+                        Destaca por su trama compleja de misterio, giros argumentales impredecibles 
+                        y una animación épica de combates que mantiene la tensión en todo momento.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Subsección 2: Anime 2 -->
+            <div class="slide">
+                <div class="contenido-seccion">
+                    <span class="categoria-tag">Fantasía / Aventura</span>
+                    <h2>Fullmetal Alchemist: Brotherhood</h2>
+                    <p class="anime-desc">
+                        Sobresale por su impecable construcción de mundo, desarrollo de personajes 
+                        y profundas reflexiones filosóficas sobre el sacrificio y la ciencia.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Subsección 3: Anime 3 -->
+            <div class="slide">
+                <div class="contenido-seccion">
+                    <span class="categoria-tag">Thriller / Psicológico</span>
+                    <h2>Death Note</h2>
+                    <p class="anime-desc">
+                        Un fascinante duelo psicológico e intelectual entre dos mentes brillantes al límite de la ley, 
+                        con un ritmo trepidante y dilemas morales.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: GALERÍA DE IMÁGENES (Estructura de Slider Horizontal) -->
+        <div class="section">
+            <!-- Subsección 1: Galería Attack on Titan -->
+            <div class="slide">
+                <div class="galeria-container">
+                    <div class="galeria-header">
+                        <h2>Galería: Attack on Titan</h2>
+                        <p>Escenas e ilustraciones destacadas de la serie.</p>
+                    </div>
+                    <div class="galeria-grid">
+                        <div class="galeria-item">Imagen 1</div>
+                        <div class="galeria-item">Imagen 2</div>
+                        <div class="galeria-item">Imagen 3</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subsección 2: Galería Fullmetal Alchemist -->
+            <div class="slide">
+                <div class="galeria-container">
+                    <div class="galeria-header">
+                        <h2>Galería: Fullmetal Alchemist</h2>
+                        <p>Escenas e ilustraciones destacadas de la serie.</p>
+                    </div>
+                    <div class="galeria-grid">
+                        <div class="galeria-item">Imagen 1</div>
+                        <div class="galeria-item">Imagen 2</div>
+                        <div class="galeria-item">Imagen 3</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subsección 3: Galería Death Note -->
+            <div class="slide">
+                <div class="galeria-container">
+                    <div class="galeria-header">
+                        <h2>Galería: Death Note</h2>
+                        <p>Escenas e ilustraciones destacadas de la serie.</p>
+                    </div>
+                    <div class="galeria-grid">
+                        <div class="galeria-item">Imagen 1</div>
+                        <div class="galeria-item">Imagen 2</div>
+                        <div class="galeria-item">Imagen 3</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- SECCIÓN 5: CONTACTO -->
+        <div class="section">
+            <div class="contacto-container">
+                <div class="contacto-header">
+                    <h2>Contacto y Redes</h2>
+                    <p>Facultad de Ingeniería — Desarrollo Web</p>
+                </div>
+
+                <div class="contacto-grid">
+                    <!-- Lado 1: Información y Redes Sociales de los autores -->
+                    <div class="contacto-info">
+                        <h3>Información del Equipo</h3>
+                        <p class="contacto-desc">
+                            ¿Tienes dudas sobre el proyecto o deseas consultar la documentación técnica y el repositorio del código?
+                        </p>
+                        <ul class="lista-contacto">
+                            <li>📧 <strong>Correo:</strong> galacticos@estudiantes.udb.sv</li>
+                            <li>📍 <strong>Ubicación:</strong> Ciudadela Don Bosco, Soyapango</li>
+                        </ul>
+                        
+                        <div class="redes-sociales">
+                            <a href="#" class="btn-red">GitHub</a>
+                            <a href="#" class="btn-red">Discord</a>
+                        </div>
+                    </div>
+
+                    <!-- Lado 2: Formulario representativo de contacto -->
+                    <div class="contacto-form-box">
+                        <h3>Envíanos un mensaje</h3>
+                        <form id="formContacto" onsubmit="event.preventDefault(); document.getElementById('formContacto').reset(); alert('¡Mensaje enviado!');">
+                            <div class="campo">
+                                <input type="text" placeholder="Nombre" required>
+                            </div>
+                            <div class="campo">
+                                <input type="email" placeholder="Correo Electrónico" required>
+                            </div>
+                            <div class="campo">
+                                <textarea rows="3" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-enviar">Enviar Mensaje</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.min.js"></script>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
