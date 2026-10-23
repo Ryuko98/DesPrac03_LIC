@@ -19,8 +19,12 @@ $(document).ready(function () {
         navigationPosition: 'right',
         navigationTooltips: ['Inicio', 'Presentación', 'Servicios', 'Galería', 'Contacto'],
         showActiveTooltip: false,
-        sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', '#f90', '#ccc'],
+        sectionsColor: ['#f2f2f2', '#ccc', '#7BAABE', '#f90', '#ccc'],
         slidesNavigation: true,
-        slidesNavPosition: 'bottom'
+        slidesNavPosition: 'bottom',
+
+        // Funciones de navigation
+        menu: '#menu', 
+        anchors: ['inicio', 'presentacion', 'animes', 'galeria', 'contacto']
     });
 });

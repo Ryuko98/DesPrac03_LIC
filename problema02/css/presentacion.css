@@ -1,0 +1,82 @@
+/* Contenedor principal centrado */
+.presentacion-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Encabezado con badge decorativo */
+.presentacion-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.presentacion-header h2 {
+    font-size: 2.2rem;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.presentacion-header .descripcion {
+    color: #555555;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+/* Tarjeta principal de los autores */
+.tarjeta-autores {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 28px 35px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Detalle de línea de acento superior en la tarjeta */
+.tarjeta-autores::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #3565D5;
+}
+
+
+.tarjeta-autores h3 {
+    font-size: 1.15rem;
+    margin-bottom: 15px;
+    color: #3565D5;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Estructura de nombres de integrantes */
+.integrantes-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.integrante-item {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    color: #334155;
+    font-size: 0.95rem;
+}

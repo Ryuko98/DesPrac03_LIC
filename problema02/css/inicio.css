@@ -1,0 +1,39 @@
+/* ==========================================
+   SECCIÓN 1: INICIO (PORTADA)
+   ========================================== */
+
+.inicio-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Título principal de la portada */
+.inicio-titulo {
+    font-size: 3rem;
+    color: #1a1a1a;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+
+/* Subtítulo descriptivo */
+.inicio-subtitulo {
+    font-size: 1.15rem;
+    color: #555555;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* Indicador inferior */
+.inicio-scroll-text {
+    font-size: 0.9rem;
+    color: #718096;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}

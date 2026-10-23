@@ -1,0 +1,27 @@
+/* Reseteo general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Forzar centrado en las secciones de FullPage */
+.section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Eliminar el padding interno por defecto de FullPage para control total */
+.fp-tableCell {
+    padding: 0 !important;
+}
+
+/* Contenedor interno general */
+.contenido-seccion {
+    max-width: auto;
+    margin: 0 auto;
+}

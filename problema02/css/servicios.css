@@ -1,0 +1,21 @@
+/* Reposicionar las flechas del slider horizontal para que no choquen con el menú lateral */
+.fp-controlArrow.fp-next {
+    right: 50px;
+}
+
+.fp-controlArrow.fp-prev {
+    left: 30px;
+}
+
+/* Colores de fondo dinámicos para cada subsección de anime */
+.section:nth-child(3) .fp-slide:nth-child(1) {
+    background-color: #D2C4AE !important;
+}
+
+.section:nth-child(3) .fp-slide:nth-child(2) {
+    background-color: #4A9F46 !important;
+}
+
+.section:nth-child(3) .fp-slide:nth-child(3) {
+    background-color: #256B54 !important;
+}

@@ -1,0 +1,85 @@
+/* Fijar el menú arriba de todo */
+#navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background: #3565D5;
+}
+
+/* Limpiar flotados de la lista principal */
+ul.parent {
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+ul.parent::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Elementos principales del menú */
+ul.parent > li {
+    float: left;
+    width: 20%;
+    text-align: center;
+    background: #3565D5;
+    border-right: 1px solid #1B86BC;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Quitar el borde al último elemento */
+ul.parent > li:last-child {
+    border-right: none;
+}
+
+ul.parent > li:hover {
+    background: #284da0;
+}
+
+/* Estilo unificado para los textos o enlaces de la barra principal */
+.parent > li > a, 
+.parent > li > .menu-item-padre {
+    display: block;
+    padding: 15px 10px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Submenús flotantes */
+ul.child {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #35A0D5;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo para cada item del submenú */
+ul.child li {
+    width: 100%;
+}
+
+/* Estilo de los enlaces dentro de los submenús */
+ul.child li a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+ul.child li:hover {
+    background: #1B86BC;
+}

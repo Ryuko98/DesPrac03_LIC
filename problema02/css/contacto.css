@@ -1,0 +1,118 @@
+/* Contenedor de contacto */
+.contacto-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contacto-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.contacto-header h2 {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.contacto-header p {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Rejilla de 2 columnas centrada */
+.contacto-grid {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.contacto-info, .contacto-form-box {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: left;
+}
+
+.contacto-info h3, .contacto-form-box h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: #3565D5;
+}
+
+.contacto-desc {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.lista-contacto {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.lista-contacto li {
+    margin-bottom: 8px;
+}
+
+/* Botones y Campos */
+.redes-sociales {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-red {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #3565D5;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.btn-red:hover {
+    background: #1B86BC;
+}
+
+.campo {
+    margin-bottom: 12px;
+}
+
+.campo input, .campo textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-family: inherit;
+}
+
+.btn-enviar {
+    width: 100%;
+    padding: 10px;
+    background: #3565D5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-enviar:hover {
+    background: #1B86BC;
+}

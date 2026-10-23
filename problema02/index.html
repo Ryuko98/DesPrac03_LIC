@@ -1,58 +1,74 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitio One Page con FullPage.js</title>
+    <title>Problema 02 [jQuery y FullPage.js]</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.min.css" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/inicio.css">
+    <link rel="stylesheet" href="css/presentacion.css">
+    <link rel="stylesheet" href="css/servicios.css">
+    <link rel="stylesheet" href="css/galeria.css">
+    <link rel="stylesheet" href="css/contacto.css">
 </head>
+
 <body>
     <nav id="navigation">
-        <ul class="parent">
-            <li>Inicio</li>
-            <li>Presentación</li>
-            <li>Servicios
+        <ul id="menu" class="parent">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#presentacion">Presentación</a></li>
+            <li>
+                <span class="menu-item-padre">Descripciones</span>
                 <ul class="child">
-                    <li>Diseño</li>
-                    <li>Desarrollo</li>
-                    <li>Anime 3</li>                
+                    <li><a href="#animes/aot">Attack on Titan</a></li>
+                    <li><a href="#animes/hxh">Hunter × Hunter</a></li>
+                    <li><a href="#animes/mha">My Hero Academia</a></li>
                 </ul>
             </li>
-            <li>Galería
+            <li>
+                <span class="menu-item-padre">Galería</span>
                 <ul class="child">
-                    <li>Fotos</li>
-                    <li>Videos</li>
-                    <li>Anime 3</li>
+                    <li><a href="#galeria/aot">Galería AoT</a></li>
+                    <li><a href="#galeria/hxh">Galería HxH</a></li>
+                    <li><a href="#galeria/mha">Galería MHA</a></li>
                 </ul>
             </li>
-            <li>Contacto</li>
+            <li><a href="#contacto">Contacto</a></li>
         </ul>
     </nav>
 
     <!-- Contenedor de FullPage.js -->
     <div id="fullpage">
-        
+
         <!-- SECCIÓN 1: INICIO (Portada del Proyecto) -->
         <div class="section">
-            <div class="contenido-seccion">
-                <h1 class="display-4 fw-bold">Catálogo de Anime</h1>
-                <p class="lead mt-3">Desafío 03 — Problema 02</p>
-                <div class="mt-4">
-                    <span class="badge bg-primary fs-6 px-3 py-2">Desplázate para explorar</span>
+            <div class="inicio-container">
+                <h1 class="inicio-titulo">Catálogo de Anime</h1>
+                <p class="inicio-subtitulo">Desarrollo de sitio web dinámico con jQuery y FullPage.js</p>
+                <div class="inicio-footer">
+                    <span class="inicio-scroll-text">↓ Desplázate para explorar</span>
                 </div>
             </div>
         </div>
 
         <!-- SECCIÓN 2: PRESENTACIÓN -->
         <div class="section">
-            <div class="contenido-seccion">
-                <h2>Presentación del Proyecto</h2>
-                <p class="descripcion">Sitio web desarrollado como asignación académica para evaluar el uso de jQuery y FullPage.js.</p>
+            <div class="presentacion-container">
+                <div class="presentacion-header">
+                    <h2>Presentación de la Página</h2>
+                    <p class="descripcion">Sitio web enfocado en reseñas generales de algunos animes con el fin de
+                        demostrar el funcionamiento de jQuery (Navbar) y FullPage.js (Scrolling y Slides).</p>
+                </div>
+
                 <div class="tarjeta-autores">
                     <h3>Desarrollado por:</h3>
-                    <p>Nombre del Estudiante 1</p>
-                    <p>Nombre del Estudiante 2</p>
+                    <div class="integrantes-list">
+                        <div class="integrante-item">👤 Daniel Alejandro Hernández Figueroa</div>
+                        <div class="integrante-item">👤 Alex Gabriel Araujo Sol</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,37 +76,37 @@
         <!-- SECCIÓN 3: SLIDER HORIZONTAL DE ANIMES -->
         <div class="section">
             <!-- Subsección 1: Anime 1 -->
-            <div class="slide">
+            <div class="slide" data-anchor="aot">
                 <div class="contenido-seccion">
-                    <span class="categoria-tag">Shonen / Acción</span>
+                    <span class="categoria-tag">Shonen / Acción / Oscuro</span>
                     <h2>Attack on Titan (Shingeki no Kyojin)</h2>
                     <p class="anime-desc">
-                        Destaca por su trama compleja de misterio, giros argumentales impredecibles 
-                        y una animación épica de combates que mantiene la tensión en todo momento.
+                        Una intensa historia de supervivencia humana frente a titanes devoradores de hombres, <br>
+                        caracterizada por misterios políticos profundos y giros argumentales magistrales.
                     </p>
                 </div>
             </div>
 
             <!-- Subsección 2: Anime 2 -->
-            <div class="slide">
+            <div class="slide" data-anchor="hxh">
                 <div class="contenido-seccion">
-                    <span class="categoria-tag">Fantasía / Aventura</span>
-                    <h2>Fullmetal Alchemist: Brotherhood</h2>
+                    <span class="categoria-tag">Aventura / Shonen / Estrategia</span>
+                    <h2>Hunter × Hunter</h2>
                     <p class="anime-desc">
-                        Sobresale por su impecable construcción de mundo, desarrollo de personajes 
-                        y profundas reflexiones filosóficas sobre el sacrificio y la ciencia.
+                        Sigue el viaje de Gon Freecss para convertirse en Cazador, destacando por su <br>
+                        complejo sistema de poder (Nen), arcos argumentales brillantes y dilemas morales complejos.
                     </p>
                 </div>
             </div>
 
             <!-- Subsección 3: Anime 3 -->
-            <div class="slide">
+            <div class="slide" data-anchor="mha">
                 <div class="contenido-seccion">
-                    <span class="categoria-tag">Thriller / Psicológico</span>
-                    <h2>Death Note</h2>
+                    <span class="categoria-tag">Superhéroes / Acción / Shonen</span>
+                    <h2>My Hero Academia (Boku no Hīrō Akademia)</h2>
                     <p class="anime-desc">
-                        Un fascinante duelo psicológico e intelectual entre dos mentes brillantes al límite de la ley, 
-                        con un ritmo trepidante y dilemas morales.
+                        Un mundo donde la mayoría de la población posee superpoderes ("Koseis"), siguiendo<br>
+                        el crecimiento de jóvenes héroes en academia para aprender a usar sus habilidades.
                     </p>
                 </div>
             </div>
@@ -99,52 +115,79 @@
         <!-- SECCIÓN 4: GALERÍA DE IMÁGENES (Estructura de Slider Horizontal) -->
         <div class="section">
             <!-- Subsección 1: Galería Attack on Titan -->
-            <div class="slide">
+            <div class="slide" data-anchor="aot">
                 <div class="galeria-container">
                     <div class="galeria-header">
                         <h2>Galería: Attack on Titan</h2>
-                        <p>Escenas e ilustraciones destacadas de la serie.</p>
+                        <p>Escenas e ilustraciones destacadas del anime.</p>
                     </div>
                     <div class="galeria-grid">
-                        <div class="galeria-item">Imagen 1</div>
-                        <div class="galeria-item">Imagen 2</div>
-                        <div class="galeria-item">Imagen 3</div>
+                        <div class="galeria-item">
+                            <img src="https://media.revistagq.com/photos/6061de8b7e6648d674c91a59/16:9/w_1280,c_limit/attack%20on%20titan.jpeg"
+                                alt="Soldados">
+                        </div>
+                        <div class="galeria-item">
+                            <img src="https://m.media-amazon.com/images/S/pv-target-images/c4a482851a80ece7b6c052de1a9109a11dfa7714e58a6b60184bc2b59ecd7e21._SX1080_FMjpg_.jpg"
+                                alt="Titan">
+                        </div>
+                        <div class="galeria-item">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdWf56DaRUNCzjEIpvaPjL7BkHevtyAP6PSjGtFcxvA97QHotiHcwqzVw_&s=10"
+                                alt="Murallas">
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Subsección 2: Galería Fullmetal Alchemist -->
-            <div class="slide">
+            <!-- Subsección 2: Galería Hunter x Hunter -->
+            <div class="slide" data-anchor="hxh">
                 <div class="galeria-container">
                     <div class="galeria-header">
-                        <h2>Galería: Fullmetal Alchemist</h2>
-                        <p>Escenas e ilustraciones destacadas de la serie.</p>
+                        <h2>Galería: Hunter × Hunter</h2>
+                        <p>Escenas e ilustraciones destacadas del anime.</p>
                     </div>
                     <div class="galeria-grid">
-                        <div class="galeria-item">Imagen 1</div>
-                        <div class="galeria-item">Imagen 2</div>
-                        <div class="galeria-item">Imagen 3</div>
+                        <div class="galeria-item">
+                            <img src="https://static.wikia.nocookie.net/hunterxhunter/images/6/63/HxH2011_EP1_Kurapika_Gon_Leorio_Introductions.png/revision/latest?cb=20230308032429"
+                                alt="Hola, me llamo Gon">
+                        </div>
+                        <div class="galeria-item">
+                            <img src="https://static.wikia.nocookie.net/hunterxhunter/images/2/20/Gon_y_Mito_abrazo.png/revision/latest/scale-to-width-down/1280?cb=20140712034941&path-prefix=es"
+                                alt="Esta es mi tía Mito">
+                        </div>
+                        <div class="galeria-item">
+                            <img src="https://geeksandgamers.com/wp-content/uploads/2018/01/hunter-exam-arc.jpg.webp"
+                                alt="Examen de cazadores">
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Subsección 3: Galería Death Note -->
-            <div class="slide">
+            <!-- Subsección 3: Galería My Hero Academia -->
+            <div class="slide" data-anchor="mha">
                 <div class="galeria-container">
                     <div class="galeria-header">
-                        <h2>Galería: Death Note</h2>
-                        <p>Escenas e ilustraciones destacadas de la serie.</p>
+                        <h2>Galería: My Hero Academia</h2>
+                        <p>Escenas e ilustraciones destacadas del anime.</p>
                     </div>
                     <div class="galeria-grid">
-                        <div class="galeria-item">Imagen 1</div>
-                        <div class="galeria-item">Imagen 2</div>
-                        <div class="galeria-item">Imagen 3</div>
+                        <div class="galeria-item">
+                            <img src="https://i.ytimg.com/vi/9poxgkHtQNo/mqdefault.jpg?sqp=-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gWSgkMA8=&rs=AOn4CLCNa4mtfDpeVC-e_J9kE4wWjyg82g"
+                                alt="Cometelo">
+                        </div>
+                        <div class="galeria-item">
+                            <img src="https://static0.colliderimages.com/wordpress/wp-content/uploads/2025/06/all-might-standing-in-the-sun-in-my-hero-academia-season-1.png?w=1200&h=675&fit=crop"
+                                alt="All Might">
+                        </div>
+                        <div class="galeria-item">
+                            <img src="https://resizing.flixster.com/AYe6qwA67xNhaTExaZfuo_gAfU0=/375x210/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p12862503_e_h8_aa.jpg"
+                                alt="Clase 1-A">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-<!-- SECCIÓN 5: CONTACTO -->
+        <!-- SECCIÓN 5: CONTACTO -->
         <div class="section">
             <div class="contacto-container">
                 <div class="contacto-header">
@@ -157,23 +200,25 @@
                     <div class="contacto-info">
                         <h3>Información del Equipo</h3>
                         <p class="contacto-desc">
-                            ¿Tienes dudas sobre el proyecto o deseas consultar la documentación técnica y el repositorio del código?
+                            ¿Tienes dudas sobre el proyecto o deseas consultar la documentación técnica y el repositorio
+                            del código?
                         </p>
                         <ul class="lista-contacto">
                             <li>📧 <strong>Correo:</strong> galacticos@estudiantes.udb.sv</li>
                             <li>📍 <strong>Ubicación:</strong> Ciudadela Don Bosco, Soyapango</li>
                         </ul>
-                        
+
                         <div class="redes-sociales">
-                            <a href="#" class="btn-red">GitHub</a>
-                            <a href="#" class="btn-red">Discord</a>
+                            <a href="https://github.com/Ryuko98/DesPrac03_LIC" class="btn-red" target="_blank">GitHub</a>
+                            <a href="https://discord.com/" class="btn-red" target="_blank">Discord</a>
                         </div>
                     </div>
 
                     <!-- Lado 2: Formulario representativo de contacto -->
                     <div class="contacto-form-box">
                         <h3>Envíanos un mensaje</h3>
-                        <form id="formContacto" onsubmit="event.preventDefault(); document.getElementById('formContacto').reset(); alert('¡Mensaje enviado!');">
+                        <form id="formContacto"
+                            onsubmit="event.preventDefault(); document.getElementById('formContacto').reset(); alert('¡Mensaje enviado!');">
                             <div class="campo">
                                 <input type="text" placeholder="Nombre" required>
                             </div>
@@ -193,7 +238,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.min.js"></script>
-    
+
     <script src="js/script.js"></script>
 </body>
+
 </html>
