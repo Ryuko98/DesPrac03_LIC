@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { IconPokeball, IconSearch, IconTable, IconLayoutGrid, IconFilter } from '@tabler/icons-react';
+import { IconPokeball, IconSearch, IconTable, IconLayoutGrid, IconFilter, IconEdit, IconTrash } from '@tabler/icons-react';
 
 export default function Home() {
   // estado para los campos del formulario
@@ -17,17 +17,20 @@ export default function Home() {
 
   // estado para errores de validación
   const [errors, setErrors] = useState({});
-  
+
   // estado para la lista de Pokémon registrados
   const [pokemonList, setPokemonList] = useState([]);
-  
+
+  // estado para controlar si estamos editando un Pokémon (guarda su id o null)
+  const [editandoId, setEditandoId] = useState(null);
+
   // estados para los filtros de búsqueda avanzados
   const [busqueda, setBusqueda] = useState('');
   const [filtroTipo, setFiltroTipo] = useState('Todos');
 
   // estado para el tipo de vista ('tabla' o 'tarjetas')
   const [vista, setVista] = useState('tabla'); 
-  const [mensajeExito, setMensajeExito] = useState(false);
+  const [mensajeExito, setMensajeExito] = useState('');
 
   // manejador de cambios en los inputs
   const handleChange = (e) => {
@@ -42,7 +45,7 @@ export default function Home() {
   // validaciones (campos obligatorios y que sea de la primera gen)
   const validar = () => {
     let nuevosErrores = {};
-    
+
     // validación de que el numero de pokedex este entre el rango de la primera gen
     const numPokedex = parseInt(formData.numero);
     if (!formData.numero) {
@@ -55,11 +58,12 @@ export default function Home() {
     if (!formData.nombre.trim()) nuevosErrores.nombre = 'El nombre es obligatorio.';
     if (!formData.tipo) nuevosErrores.tipo = 'El tipo es obligatorio.';
     if (!formData.nivel) nuevosErrores.nivel = 'El nivel es obligatorio.';
-    
+
     if (formData.imagenTipo === 'url' && !formData.imagenUrl.trim()) {
       nuevosErrores.imagen = 'Debe ingresar una URL de imagen válida.';
     }
-    if (formData.imagenTipo === 'archivo' && !formData.imagenFile) {
+    // si estamos editando y ya tenía imagen previa, el archivo no es estrictamente obligatorio de resubirla
+    if (formData.imagenTipo === 'archivo' && !formData.imagenFile && !editandoId) {
       nuevosErrores.imagen = 'Debe seleccionar un archivo de imagen.';
     }
 
@@ -67,30 +71,52 @@ export default function Home() {
     return Object.keys(nuevosErrores).length === 0;
   };
 
-  // manejador del envio del formulario
+  // manejador del envio del formulario (Crear o Actualizar)
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validar()) return;
 
     // procesar la fuente de la imagen
-    let imagenSrc = '';
-    if (formData.imagenTipo === 'url') {
-      imagenSrc = formData.imagenUrl;
-    } else if (formData.imagenFile) {
+    let imagenSrc = formData.imagenUrl;
+    if (formData.imagenTipo === 'archivo' && formData.imagenFile) {
       imagenSrc = URL.createObjectURL(formData.imagenFile);
+    } else if (editandoId && formData.imagenTipo === 'url' && !formData.imagenUrl) {
+      // Si edita y no cambia la URL, conservamos la anterior (manejado abajo)
+      const pokemonActual = pokemonList.find(p => p.id === editandoId);
+      imagenSrc = pokemonActual ? pokemonActual.imagen : '';
     }
 
-    const nuevoPokemon = {
-      id: Date.now(),
-      numero: formData.numero,
-      nombre: formData.nombre,
-      tipo: formData.tipo,
-      nivel: formData.nivel,
-      imagen: imagenSrc
-    };
+    if (editandoId !== null) {
+      // formulario modo actualizar
+      setPokemonList(pokemonList.map(p => {
+        if (p.id === editandoId) {
+          return {
+            ...p,
+            numero: formData.numero,
+            nombre: formData.nombre,
+            tipo: formData.tipo,
+            nivel: formData.nivel,
+            imagen: imagenSrc || p.imagen
+          };
+        }
+        return p;
+      }));
+      setMensajeExito('¡Pokémon actualizado exitosamente!');
+      setEditandoId(null);
+    } else {
+      // formulario modo crear
+      const nuevoPokemon = {
+        id: Date.now(),
+        numero: formData.numero,
+        nombre: formData.nombre,
+        tipo: formData.tipo,
+        nivel: formData.nivel,
+        imagen: imagenSrc
+      };
+      setPokemonList([...pokemonList, nuevoPokemon]);
+      setMensajeExito('¡Pokémon registrado exitosamente en la Pokédex!');
+    }
 
-    setPokemonList([...pokemonList, nuevoPokemon]);
-    
     // limpiar formulario asegurando valores no indefinidos
     setFormData({
       numero: '',
@@ -102,11 +128,37 @@ export default function Home() {
       imagenFile: null
     });
     setErrors({});
-    setMensajeExito(true);
-    setTimeout(() => setMensajeExito(false), 3000);
+    setTimeout(() => setMensajeExito(''), 3000);
   };
 
-  // filtrar Pokémon por nombre o número y también por el tipo seleccionado
+  // función para cargar los datos del pokémon al formulario para editarlos
+  const handleEditar = (pokemon) => {
+    setEditandoId(pokemon.id);
+    setFormData({
+      numero: pokemon.numero,
+      nombre: pokemon.nombre,
+      tipo: pokemon.tipo,
+      nivel: pokemon.nivel,
+      imagenTipo: 'url',
+      imagenUrl: pokemon.imagen.startsWith('blob:') ? '' : pokemon.imagen, // Si es blob local, pedirá nueva URL o archivo si se cambia
+      imagenFile: null
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Sube suavemente al formulario
+  };
+
+  // función para eliminar un pokémon del arreglo
+  const handleEliminar = (id) => {
+    if (confirm('¿Estás seguro de eliminar este Pokémon de la Pokédex?')) {
+      setPokemonList(pokemonList.filter(p => p.id !== id));
+      if (editandoId === id) {
+        // Si borramos el que estábamos editando, limpiamos el form
+        setEditandoId(null);
+        setFormData({ numero: '', nombre: '', tipo: 'Normal', nivel: '', imagenTipo: 'url', imagenUrl: '', imagenFile: null });
+      }
+    }
+  };
+
+  // filtrar pokémon por nombre o número y también por el tipo seleccionado
   const pokemonFiltrados = pokemonList.filter(p => {
     const coincideTexto = p.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
                           p.numero.toString().includes(busqueda);
@@ -117,8 +169,8 @@ export default function Home() {
   return (
     <main style={{ backgroundColor: '#f4f6f9', minHeight: '100vh', paddingBottom: '3rem' }}>
       <div className="container py-5">
-        
-        {/* encabezado*/}
+
+        {/* encabezado */}
         <div className="mb-4 d-flex align-items-center gap-3">
           <div className="p-3 bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center text-primary shadow-sm">
             <IconPokeball size={36} stroke={1.8} />
@@ -132,16 +184,33 @@ export default function Home() {
         {/* alerta de éxito */}
         {mensajeExito && (
           <div className="alert alert-success shadow-sm border-0 mb-4" role="alert">
-            ¡Pokémon registrado exitosamente en la Pokédex!
+            {mensajeExito}
           </div>
         )}
 
-        {/* form para ingresar los datos */}
+        {/* form para ingresar o actualizar los datos */}
         <div className="card shadow-sm border-0 bg-white p-4 mb-5 rounded-4">
-          <h4 className="fw-semibold mb-3 text-secondary">Registrar Nuevo Pokémon (1ª Gen)</h4>
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <h4 className="fw-semibold text-secondary mb-0">
+              {editandoId ? `Editando Pokémon (ID: ${editandoId})` : 'Registrar Nuevo Pokémon (1ª Gen)'}
+            </h4>
+            {editandoId && (
+              <button 
+                type="button" 
+                className="btn btn-outline-secondary btn-sm"
+                onClick={() => {
+                  setEditandoId(null);
+                  setFormData({ numero: '', nombre: '', tipo: 'Normal', nivel: '', imagenTipo: 'url', imagenUrl: '', imagenFile: null });
+                }}
+              >
+                Cancelar Edición
+              </button>
+            )}
+          </div>
+
           <form onSubmit={handleSubmit}>
             <div className="row g-3">
-              
+
               {/* numero pokedex */}
               <div className="col-md-3">
                 <label className="form-label fw-medium">N° Pokédex (1 - 151)</label>
@@ -156,7 +225,7 @@ export default function Home() {
                 {errors.numero && <div className="invalid-feedback">{errors.numero}</div>}
               </div>
 
-              {/* nombree */}
+              {/* nombre */}
               <div className="col-md-3">
                 <label className="form-label fw-medium">Nombre</label>
                 <input
@@ -269,18 +338,18 @@ export default function Home() {
 
             </div>
 
-            {/* btn enviar */}
+            {/* btn enviar / actualizar */}
             <div className="mt-4 text-end">
-              <button type="submit" className="btn btn-danger px-4 py-2 fw-medium shadow-sm">
-                Agregar Pokémon
+              <button type="submit" className={`btn ${editandoId ? 'btn-success' : 'btn-danger'} px-4 py-2 fw-medium shadow-sm`}>
+                {editandoId ? 'Actualizar Pokémon' : 'Agregar Pokémon'}
               </button>
             </div>
           </form>
         </div>
 
-        {/* controles: buscador por texto onúmero, filtro por tipo */}
+        {/* controles: buscador por texto o número, filtro por tipo */}
         <div className="row align-items-center mb-4 g-3">
-          {/* input buscador buscador */}
+          {/* input buscador */}
           <div className="col-md-5">
             <div className="input-group bg-white shadow-sm rounded-3 overflow-hidden border">
               <span className="input-group-text bg-white border-0 text-muted ps-3">
@@ -354,7 +423,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* aqui se muestra todo :P */}
+        {/* visualización de registros */}
         {pokemonFiltrados.length === 0 ? (
           <div className="card shadow-sm border-0 bg-white p-5 text-center rounded-4">
             <p className="text-muted mb-0">No se encontraron Pokémon registrados o coincidentes con los filtros.</p>
@@ -370,7 +439,8 @@ export default function Home() {
                     <th className="py-3">N°</th>
                     <th className="py-3">Nombre</th>
                     <th className="py-3">Tipo</th>
-                    <th className="py-3 pe-4">Nivel</th>
+                    <th className="py-3">Nivel</th>
+                    <th className="py-3 text-center pe-4">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -391,7 +461,27 @@ export default function Home() {
                           {p.tipo}
                         </span>
                       </td>
-                      <td className="pe-4 fw-medium">Nv. {p.nivel}</td>
+                      <td className="fw-medium">Nv. {p.nivel}</td>
+                      <td className="text-center pe-4">
+                        <div className="d-flex justify-content-center gap-2">
+                          <button 
+                            className="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center"
+                            onClick={() => handleEditar(p)}
+                            title="Editar Pokémon"
+                            style={{ width: '32px', height: '32px' }}
+                          >
+                            <IconEdit size={16} />
+                          </button>
+                          <button 
+                            className="btn btn-outline-danger btn-sm d-flex align-items-center justify-content-center"
+                            onClick={() => handleEliminar(p.id)}
+                            title="Eliminar Pokémon"
+                            style={{ width: '32px', height: '32px' }}
+                          >
+                            <IconTrash size={16} />
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -403,23 +493,42 @@ export default function Home() {
           <div className="row g-4">
             {pokemonFiltrados.map((p) => (
               <div className="col-md-4 col-sm-6" key={p.id}>
-                <div className="card shadow-sm border-0 bg-white rounded-4 h-100 text-center p-3">
-                  <div className="mx-auto mt-2 p-2 bg-light rounded-circle border" style={{ width: '90px', height: '90px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img 
-                      src={p.imagen} 
-                      alt={p.nombre} 
-                      style={{ maxHeight: '75px', maxWidth: '75px', objectFit: 'contain' }} 
-                    />
-                  </div>
-                  <div className="card-body">
-                    <span className="text-muted small fw-semibold">#{p.numero}</span>
-                    <h5 className="card-title fw-bold text-dark mt-1">{p.nombre}</h5>
-                    <div className="mb-3">
-                      <span className="badge bg-primary bg-opacity-10 text-primary px-3 py-1">
-                        {p.tipo}
-                      </span>
+                <div className="card shadow-sm border-0 bg-white rounded-4 h-100 text-center p-3 d-flex flex-column justify-content-between">
+                  <div>
+                    <div className="mx-auto mt-2 p-2 bg-light rounded-circle border" style={{ width: '90px', height: '90px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <img 
+                        src={p.imagen} 
+                        alt={p.nombre} 
+                        style={{ maxHeight: '75px', maxWidth: '75px', objectFit: 'contain' }} 
+                      />
                     </div>
-                    <p className="text-secondary mb-0 fw-medium">Nivel: {p.nivel}</p>
+                    <div className="card-body pb-2">
+                      <span className="text-muted small fw-semibold">#{p.numero}</span>
+                      <h5 className="card-title fw-bold text-dark mt-1">{p.nombre}</h5>
+                      <div className="mb-2">
+                        <span className="badge bg-primary bg-opacity-10 text-primary px-3 py-1">
+                          {p.tipo}
+                        </span>
+                      </div>
+                      <p className="text-secondary mb-0 fw-medium">Nivel: {p.nivel}</p>
+                    </div>
+                  </div>
+                  {/* botones de acción en tarjeta */}
+                  <div className="card-footer bg-white border-0 pt-0 pb-2">
+                    <div className="d-flex justify-content-center gap-2">
+                      <button 
+                        className="btn btn-outline-primary btn-sm d-flex align-items-center gap-1 px-3"
+                        onClick={() => handleEditar(p)}
+                      >
+                        <IconEdit size={16} /> Editar
+                      </button>
+                      <button 
+                        className="btn btn-outline-danger btn-sm d-flex align-items-center gap-1 px-3"
+                        onClick={() => handleEliminar(p.id)}
+                      >
+                        <IconTrash size={16} /> Eliminar
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
