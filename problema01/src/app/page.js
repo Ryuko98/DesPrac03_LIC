@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { IconPokeball, IconSearch, IconTable, IconLayoutGrid, IconFilter } from '@tabler/icons-react';
 
 export default function Home() {
-  // Estado para los campos del formulario
+  // estado para los campos del formulario
   const [formData, setFormData] = useState({
     numero: '',
     nombre: '',
@@ -15,21 +15,21 @@ export default function Home() {
     imagenFile: null
   });
 
-  // Estado para errores de validación
+  // estado para errores de validación
   const [errors, setErrors] = useState({});
   
-  // Estado para la lista de Pokémon registrados
+  // estado para la lista de Pokémon registrados
   const [pokemonList, setPokemonList] = useState([]);
   
-  // Estados para los filtros de búsqueda avanzados
+  // estados para los filtros de búsqueda avanzados
   const [busqueda, setBusqueda] = useState('');
   const [filtroTipo, setFiltroTipo] = useState('Todos');
 
-  // Estado para el tipo de vista ('tabla' o 'tarjetas')
+  // estado para el tipo de vista ('tabla' o 'tarjetas')
   const [vista, setVista] = useState('tabla'); 
   const [mensajeExito, setMensajeExito] = useState(false);
 
-  // Manejador de cambios en los inputs
+  // manejador de cambios en los inputs
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'imagenFile' && files && files[0]) {
@@ -39,11 +39,20 @@ export default function Home() {
     }
   };
 
-  // Validación de campos obligatorios
+  // validaciones (campos obligatorios y que sea de la primera gen)
   const validar = () => {
     let nuevosErrores = {};
-    if (!formData.numero) nuevosErrores.numero = 'El número de Pokédex es obligatorio.';
-    if (!formData.nombre) nuevosErrores.nombre = 'El nombre es obligatorio.';
+    
+    // validación de que el numero de pokedex este entre el rango de la primera gen
+    const numPokedex = parseInt(formData.numero);
+    if (!formData.numero) {
+      nuevosErrores.numero = 'El número de Pokédex es obligatorio.';
+    } else if (isNaN(numPokedex) || numPokedex < 1 || numPokedex > 151) {
+      nuevosErrores.numero = 'Este pokémon no pertenece a la primera generación (los primeros 151 pokémon).';
+    }
+
+    // validacion de campos vacios
+    if (!formData.nombre.trim()) nuevosErrores.nombre = 'El nombre es obligatorio.';
     if (!formData.tipo) nuevosErrores.tipo = 'El tipo es obligatorio.';
     if (!formData.nivel) nuevosErrores.nivel = 'El nivel es obligatorio.';
     
@@ -58,12 +67,12 @@ export default function Home() {
     return Object.keys(nuevosErrores).length === 0;
   };
 
-  // Manejador del envío del formulario
+  // manejador del envio del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validar()) return;
 
-    // Procesar la fuente de la imagen
+    // procesar la fuente de la imagen
     let imagenSrc = '';
     if (formData.imagenTipo === 'url') {
       imagenSrc = formData.imagenUrl;
@@ -82,7 +91,7 @@ export default function Home() {
 
     setPokemonList([...pokemonList, nuevoPokemon]);
     
-    // Limpiar formulario asegurando valores no undefined
+    // limpiar formulario asegurando valores no indefinidos
     setFormData({
       numero: '',
       nombre: '',
@@ -97,7 +106,7 @@ export default function Home() {
     setTimeout(() => setMensajeExito(false), 3000);
   };
 
-  // Filtrar Pokémon por nombre/número y también por el tipo seleccionado
+  // filtrar Pokémon por nombre o número y también por el tipo seleccionado
   const pokemonFiltrados = pokemonList.filter(p => {
     const coincideTexto = p.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
                           p.numero.toString().includes(busqueda);
@@ -109,7 +118,7 @@ export default function Home() {
     <main style={{ backgroundColor: '#f4f6f9', minHeight: '100vh', paddingBottom: '3rem' }}>
       <div className="container py-5">
         
-        {/* Encabezado con el ícono de Pokéball */}
+        {/* encabezado*/}
         <div className="mb-4 d-flex align-items-center gap-3">
           <div className="p-3 bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center text-primary shadow-sm">
             <IconPokeball size={36} stroke={1.8} />
@@ -120,22 +129,22 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Alerta de éxito */}
+        {/* alerta de éxito */}
         {mensajeExito && (
           <div className="alert alert-success shadow-sm border-0 mb-4" role="alert">
             ¡Pokémon registrado exitosamente en la Pokédex!
           </div>
         )}
 
-        {/* Formulario Estático Arriba (Estilo Tarjeta Blanca) */}
+        {/* form para ingresar los datos */}
         <div className="card shadow-sm border-0 bg-white p-4 mb-5 rounded-4">
-          <h4 className="fw-semibold mb-3 text-secondary">Registrar Nuevo Pokémon</h4>
+          <h4 className="fw-semibold mb-3 text-secondary">Registrar Nuevo Pokémon (1ª Gen)</h4>
           <form onSubmit={handleSubmit}>
             <div className="row g-3">
               
-              {/* Número de Pokédex */}
+              {/* numero pokedex */}
               <div className="col-md-3">
-                <label className="form-label fw-medium">N° Pokédex</label>
+                <label className="form-label fw-medium">N° Pokédex (1 - 151)</label>
                 <input
                   type="number"
                   className={`form-control ${errors.numero ? 'is-invalid' : ''}`}
@@ -147,7 +156,7 @@ export default function Home() {
                 {errors.numero && <div className="invalid-feedback">{errors.numero}</div>}
               </div>
 
-              {/* Nombre */}
+              {/* nombree */}
               <div className="col-md-3">
                 <label className="form-label fw-medium">Nombre</label>
                 <input
@@ -161,7 +170,7 @@ export default function Home() {
                 {errors.nombre && <div className="invalid-feedback">{errors.nombre}</div>}
               </div>
 
-              {/* Tipo Principal */}
+              {/* tipo principal */}
               <div className="col-md-3">
                 <label className="form-label fw-medium">Tipo Principal</label>
                 <select
@@ -191,7 +200,7 @@ export default function Home() {
                 </select>
               </div>
 
-              {/* Nivel */}
+              {/* nivel */}
               <div className="col-md-3">
                 <label className="form-label fw-medium">Nivel</label>
                 <input
@@ -205,7 +214,7 @@ export default function Home() {
                 {errors.nivel && <div className="invalid-feedback">{errors.nivel}</div>}
               </div>
 
-              {/* Selección de Imagen (URL vs Archivo) */}
+              {/* selección de imagen (URL || archivo) */}
               <div className="col-md-12 mt-3">
                 <label className="form-label fw-medium">Imagen del Pokémon</label>
                 <div className="d-flex gap-3 mb-2">
@@ -260,7 +269,7 @@ export default function Home() {
 
             </div>
 
-            {/* Botón Enviar */}
+            {/* btn enviar */}
             <div className="mt-4 text-end">
               <button type="submit" className="btn btn-danger px-4 py-2 fw-medium shadow-sm">
                 Agregar Pokémon
@@ -269,9 +278,9 @@ export default function Home() {
           </form>
         </div>
 
-        {/* Barra de Controles Avanzada: Buscador por texto/número + Filtro por Tipo */}
+        {/* controles: buscador por texto onúmero, filtro por tipo */}
         <div className="row align-items-center mb-4 g-3">
-          {/* Input de Buscador */}
+          {/* input buscador buscador */}
           <div className="col-md-5">
             <div className="input-group bg-white shadow-sm rounded-3 overflow-hidden border">
               <span className="input-group-text bg-white border-0 text-muted ps-3">
@@ -287,7 +296,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Selector de Filtro por Tipo */}
+          {/* selector de filtro por tipo */}
           <div className="col-md-3">
             <div className="input-group bg-white shadow-sm rounded-3 overflow-hidden border">
               <span className="input-group-text bg-white border-0 text-muted ps-3">
@@ -321,7 +330,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Contador y Botones de Vista */}
+          {/* contador y botones para cambiar la vista */}
           <div className="col-md-4 d-flex justify-content-md-end align-items-center gap-2">
             <span className="badge bg-secondary fs-6 px-3 py-2">
               Total: {pokemonList.length}
@@ -345,13 +354,13 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Sección de Visualización (Tabla o Tarjetas sobre fondo blanco) */}
+        {/* aqui se muestra todo :P */}
         {pokemonFiltrados.length === 0 ? (
           <div className="card shadow-sm border-0 bg-white p-5 text-center rounded-4">
             <p className="text-muted mb-0">No se encontraron Pokémon registrados o coincidentes con los filtros.</p>
           </div>
         ) : vista === 'tabla' ? (
-          /* VISTA DE TABLA */
+          /* vista opción tabla */
           <div className="card shadow-sm border-0 bg-white rounded-4 overflow-hidden">
             <div className="table-responsive">
               <table className="table align-middle mb-0">
@@ -390,7 +399,7 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          /* VISTA DE TARJETAS (GRID) */
+          /* vista opción tarjetas */
           <div className="row g-4">
             {pokemonFiltrados.map((p) => (
               <div className="col-md-4 col-sm-6" key={p.id}>
